@@ -963,6 +963,21 @@ require('lazy').setup({
     --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
     --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
   },
+  {
+    'catppuccin/nvim',
+    name = 'catppuccin',
+    priority = 1000,
+    config = function()
+      vim.g.catppuccin_flavour = 'macchiato'
+      local colors = require('catppuccin.palettes').get_palette() -- fetch colors from g:catppuccin_flavour palette
+      require('catppuccin').setup {
+        custom_highlights = {
+          Comment = { fg = colors.flamingo },
+        },
+      }
+      vim.cmd.colorscheme 'catppuccin'
+    end,
+  },
 
   -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and
@@ -1011,6 +1026,5 @@ require('lazy').setup({
     },
   },
 })
-
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
