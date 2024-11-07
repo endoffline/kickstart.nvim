@@ -419,6 +419,10 @@ require('lazy').setup({
           --   mappings = {
           --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
           --   },
+
+          layout_strategy = 'vertical',
+          layout_config = { preview_cutoff = 40, height = 0.95, width = 0.95 },
+          path_display = { smart = 2 },
           vimgrep_arguments = {
             'rg',
             '--color=never',
