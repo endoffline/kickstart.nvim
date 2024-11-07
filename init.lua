@@ -382,6 +382,12 @@ require('lazy').setup({
       { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
       -- useful for providing arguments to live grep.
       { 'nvim-telescope/telescope-live-grep-args.nvim' },
+      {
+        'nvim-telescope/telescope-frecency.nvim',
+        config = function()
+          require('telescope').load_extension 'frecency'
+        end,
+      },
     },
     config = function()
       -- Telescope is a fuzzy finder that comes with a lot of different things that
@@ -436,6 +442,7 @@ require('lazy').setup({
         pickers = {
           find_files = {
             hidden = true,
+
             -- needed to exclude some files & dirs from general search
             -- when not included or specified in .gitignore
             find_command = {
@@ -457,12 +464,18 @@ require('lazy').setup({
           ['ui-select'] = {
             require('telescope.themes').get_dropdown(),
           },
+          ['frecency'] = {
+            auto_validate = true,
+            matcher = 'fuzzy',
+            path_display = { 'shorten' },
+          },
         },
       }
 
       -- Enable Telescope extensions if they are installed
       pcall(require('telescope').load_extension, 'fzf')
       pcall(require('telescope').load_extension, 'ui-select')
+      pcall(require('telescope').load_extension, 'frecency')
       pcall(require('telescope').load_extension, 'live_grep_args')
 
       -- See `:help telescope.builtin`
@@ -478,6 +491,7 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
       vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
       vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
+      vim.keymap.set('n', '<Leader>tf', telescope.extensions.frecency.frecency, { desc = '[T]ag [F]recency' })
 
       -- Slightly advanced example of overriding default behavior and theme
       vim.keymap.set('n', '<leader>/', function()
