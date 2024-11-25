@@ -380,8 +380,6 @@ require('lazy').setup({
 
       -- Useful for getting pretty icons, but requires a Nerd Font.
       { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
-      -- useful for providing arguments to live grep.
-      { 'nvim-telescope/telescope-live-grep-args.nvim' },
       {
         'nvim-telescope/telescope-frecency.nvim',
         config = function()
@@ -423,25 +421,6 @@ require('lazy').setup({
           layout_strategy = 'vertical',
           layout_config = { preview_cutoff = 40, height = 0.95, width = 0.95 },
           path_display = { smart = 2 },
-          vimgrep_arguments = {
-            'rg',
-            '--color=never',
-            '--no-heading',
-            '--with-filename',
-            '--line-number',
-            '--column',
-            '--smart-case',
-            '--hidden',
-
-            '--glob=!**/.git/*',
-            '--glob=!**/.idea/*',
-            '--glob=!**/.vscode/*',
-            '--glob=!**/build/*',
-            '--glob=!**/dist/*',
-            '--glob=!**/node_modules/*',
-            '--glob=!**/yarn.lock',
-            '--glob=!**/package-lock.json',
-          },
         },
         pickers = {
           find_files = {
@@ -480,7 +459,6 @@ require('lazy').setup({
       pcall(require('telescope').load_extension, 'fzf')
       pcall(require('telescope').load_extension, 'ui-select')
       pcall(require('telescope').load_extension, 'frecency')
-      pcall(require('telescope').load_extension, 'live_grep_args')
 
       -- See `:help telescope.builtin`
       local builtin = require 'telescope.builtin'
@@ -490,7 +468,6 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
       vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
       vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
-      vim.keymap.set('n', '<leader>sg', telescope.extensions.live_grep_args.live_grep_args, { desc = '[S]earch by [G]rep' })
       vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
       vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
       vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
