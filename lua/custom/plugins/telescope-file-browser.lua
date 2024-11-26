@@ -2,11 +2,21 @@ return {
   {
     'nvim-telescope/telescope-file-browser.nvim',
     dependencies = { 'nvim-telescope/telescope.nvim', 'nvim-lua/plenary.nvim' },
-    init = function()
+    config = function()
       require('telescope').load_extension 'file_browser'
 
-      -- Keybinding to open the file browser
-      require('which-key').add { { '<leader>fb', '<cmd>Telescope file_browser<cr>', desc = 'File Browser', silent = true, noremap = true } }
+      -- Keybinding to open the file browser with the path of the current buffer
+      require('which-key').add {
+        {
+          '<leader>fb',
+          function()
+            require('telescope').extensions.file_browser.file_browser { path = vim.fn.expand '%:p:h', select_buffer = true }
+          end,
+          desc = 'File Browser',
+          silent = true,
+          noremap = true,
+        },
+      }
 
       -- Disable netrw
       vim.g.loaded_netrw = 1
