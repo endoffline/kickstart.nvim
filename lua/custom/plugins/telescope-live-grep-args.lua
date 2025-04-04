@@ -7,6 +7,7 @@ return {
       require('telescope').setup {
         extensions = {
           live_grep_args = {
+            debounce = 500,
             auto_quoting = true,
             vimgrep_arguments = {
               'rg',
@@ -21,11 +22,17 @@ return {
               '--glob=!**/.git/*',
               '--glob=!**/.idea/*',
               '--glob=!**/.vscode/*',
+              '--glob=!**/.yarn/*',
+              '--glob=!**/.angular/*',
+              '--glob=!**/.gradle/*',
+              '--glob=!**/.nx/*',
+              '--glob=!**/.storybook/*',
               '--glob=!**/build/*',
               '--glob=!**/dist/*',
               '--glob=!**/node_modules/*',
               '--glob=!**/yarn.lock',
               '--glob=!**/package-lock.json',
+              '--glob=!**/*.pem',
             },
           },
         },
