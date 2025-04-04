@@ -1,18 +1,19 @@
 return {
   {
     'CopilotC-Nvim/CopilotChat.nvim',
-    branch = 'canary',
+    branch = 'main',
     dependencies = {
       { 'zbirenbaum/copilot.lua' }, -- or zbirenbaum/copilot.lua
-      { 'nvim-lua/plenary.nvim' }, -- for curl, log wrapper
+      { 'nvim-lua/plenary.nvim', branch = 'master' }, -- for curl, log wrapper
     },
     build = 'make tiktoken', -- Only on MacOS or Linux
-    lazy = false,
+    event = 'VeryLazy',
     opts = function()
       -- require('CopilotChat').setup {
       --   model = 'claude-3.5-sonnet',
       -- }
       require('which-key').add {
+        { '<leader>cc', group = '[C]opilot [C]hat' },
         {
           '<leader>ccq',
           function()
