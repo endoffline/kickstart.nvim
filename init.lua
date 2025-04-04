@@ -421,7 +421,10 @@ require('lazy').setup({
 
           layout_strategy = 'vertical',
           layout_config = { preview_cutoff = 40, height = 0.95, width = 0.95 },
-          path_display = { smart = 2 },
+          path_display = function(opts, path)
+            local tail = require('telescope.utils').path_tail(path)
+            return string.format('%s (%s)', tail, path), { { { 1, #tail }, 'Constant' } }
+          end,
         },
         pickers = {
           find_files = {
