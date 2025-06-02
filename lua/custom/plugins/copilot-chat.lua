@@ -8,31 +8,34 @@ return {
     },
     build = 'make tiktoken', -- Only on MacOS or Linux
     event = 'VeryLazy',
-    opts = function()
-      -- require('CopilotChat').setup {
-      --   model = 'claude-3.5-sonnet',
-      -- }
-      require('which-key').add {
-        { '<leader>cc', group = '[C]opilot [C]hat' },
+    config = function()
+      require('CopilotChat').setup {
+        model = 'claude-3.7-sonnet',
+      }
+
+      local wk = require 'which-key'
+
+      wk.add {
+        { '<leader>gc', group = '[G]itHub Copilot [C]hat' },
         {
-          '<leader>ccq',
+          '<leader>gcq',
           function()
             local input = vim.fn.input 'Quick Chat: '
             if input ~= '' then
               require('CopilotChat').ask(input, { selection = require('CopilotChat.select').buffer })
             end
           end,
-          desc = '[C]opilot[C]hat - [Q]uick chat',
+          desc = '[G]itHub Copilot[C]hat - [Q]uick chat',
         },
         {
-          '<leader>cco',
+          '<leader>gco',
           '<cmd>CopilotChatOpen<cr>',
-          desc = '[C]opilot[C]hat - [O]pen',
+          desc = '[G]itHub Copilot[C]hat - [O]pen',
         },
         {
-          '<leader>ccc',
+          '<leader>gcc',
           '<cmd>CopilotChatClose<cr>',
-          desc = '[C]opilot[C]hat - [C]lose',
+          desc = '[G]itHub Copilot[C]hat - [C]lose',
         },
       }
     end,
