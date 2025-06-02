@@ -4,6 +4,7 @@ return {
     'nvim-telescope/telescope-live-grep-args.nvim',
     dependencies = { 'nvim-telescope/telescope.nvim', 'nvim-lua/plenary.nvim' },
     config = function()
+      local lga_actions = require 'telescope-live-grep-args.actions'
       require('telescope').setup {
         extensions = {
           live_grep_args = {
@@ -33,6 +34,14 @@ return {
               '--glob=!**/yarn.lock',
               '--glob=!**/package-lock.json',
               '--glob=!**/*.pem',
+            },
+            -- define mappings, e.g.
+            mappings = { -- extend mappings
+              i = {
+                ['<M-q>'] = lga_actions.quote_prompt { postfix = ' --iglob **/*.' },
+                -- freeze the current list and start a fuzzy search in the frozen list
+                ['<M-r>'] = lga_actions.to_fuzzy_refine,
+              },
             },
           },
         },
