@@ -11,31 +11,40 @@ return {
     config = function()
       require('CopilotChat').setup {
         model = 'claude-3.7-sonnet',
+        mappings = {
+          reset = {
+            normal = '<C-r>',
+            insert = '<C-r>',
+            callback = function()
+              require('CopilotChat').reset()
+            end,
+          },
+        },
       }
 
       local wk = require 'which-key'
 
       wk.add {
-        { '<leader>gc', group = '[G]itHub Copilot [C]hat' },
+        { '<leader>cc', group = '[C]opilot [C]hat' },
         {
-          '<leader>gcq',
+          '<leader>ccq',
           function()
             local input = vim.fn.input 'Quick Chat: '
             if input ~= '' then
               require('CopilotChat').ask(input, { selection = require('CopilotChat.select').buffer })
             end
           end,
-          desc = '[G]itHub Copilot[C]hat - [Q]uick chat',
+          desc = '[C]opilot[C]hat - [Q]uick chat',
         },
         {
-          '<leader>gco',
+          '<leader>cco',
           '<cmd>CopilotChatOpen<cr>',
-          desc = '[G]itHub Copilot[C]hat - [O]pen',
+          desc = '[C]opilot[C]hat - [O]pen',
         },
         {
-          '<leader>gcc',
+          '<leader>ccc',
           '<cmd>CopilotChatClose<cr>',
-          desc = '[G]itHub Copilot[C]hat - [C]lose',
+          desc = '[C]opilot[C]hat - [C]lose',
         },
       }
     end,
