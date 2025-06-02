@@ -743,6 +743,9 @@ require('lazy').setup({
 
       local lsp_util = require 'lspconfig.util'
 
+      local project_library_path = '~/dev/backbone/master/frontend/'
+      local angular_cmd = { 'ngserver', '--stdio', '--tsProbeLocations', project_library_path, '--ngProbeLocations', project_library_path }
+
       local servers = {
         -- clangd = {},
         -- gopls = {},
@@ -755,10 +758,12 @@ require('lazy').setup({
         --
         -- But for many setups, the LSP (`ts_ls`) will work just fine
 
-        --
         angularls = {
           root_dir = lsp_util.root_pattern('nx.json', 'project.json', '.git'),
-          filetypes = { 'typescript', 'html', 'typescriptreact', 'typescript.tsx', 'htmlangular' },
+          cmd = angular_cmd,
+          on_new_config = function(new_config, new_root_dir)
+            new_config.cmd = angular_cmd
+          end,
         },
         nxls = {},
         eslint = {},
@@ -784,10 +789,10 @@ require('lazy').setup({
         },
 
         java_language_server = {
-          root_dir = lsp_util.root_pattern('build.gradle', '.git'),
+          -- root_dir = lsp_util.root_pattern('build.gradle', '.git'),
         },
         gradle_ls = {
-          root_dir = lsp_util.root_pattern('build.gradle', '.git'),
+          -- root_dir = lsp_util.root_pattern('build.gradle', '.git'),
         },
       }
 
