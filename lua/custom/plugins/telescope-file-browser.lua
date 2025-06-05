@@ -7,7 +7,6 @@ return {
       telescope.setup {
         extensions = {
           file_browser = {
-            theme = 'dropdown',
             hijack_netrw = true, -- This will make the file browser take over netrw
             path = vim.fn.expand '%:p:h',
             select_buffer = true,
@@ -22,7 +21,10 @@ return {
         {
           '<leader>b',
           function()
-            telescope.extensions.file_browser.file_browser {}
+            telescope.extensions.file_browser.file_browser {
+              path = vim.fn.expand '%:p:h',
+              select_buffer = true,
+            }
           end,
           desc = 'File [B]rowser',
           silent = true,
